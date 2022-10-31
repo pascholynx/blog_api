@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport');
+const connectEnsureLogin = require('connect-ensure-login');
 const bodyParser = require('body-parser');
 const db = require('./db');
 
@@ -16,6 +18,12 @@ app.use(bodyParser.urlencoded({
 
 app.get('/', (req,res) => {
    res.end('Welcome to our blog site')
+});
+
+//catch errors middleware
+app.use((err, req, res, next) => {
+   console.log(err);
+   res.status(500).send('Something broke!');
 });
 
 app.listen(PORT, () => {
