@@ -32,6 +32,7 @@ const blogSchema = new Schema({
  
  readingTime: Number,
  tags: [ String ],
+ body: String,
 
  timestamp: {
   type: Date,

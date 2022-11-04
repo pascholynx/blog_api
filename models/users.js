@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -8,9 +9,14 @@ const userSchema = new Schema({
    required: true,
    unique: true
   },
- pasword: {
+ password: {
    type: String,
    required: true
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true
   },
  firstName: {
   type: String,
@@ -41,6 +47,8 @@ userSchema.methods.isValidPassword = async function(password) {
  return compare;
 
 }
+
+userSchema.plugin(passportLocalMongoose);
 
 const UserModel = mongoose.model('users', userSchema);
 
