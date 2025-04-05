@@ -5,8 +5,8 @@ const blogRouter = express.Router()
 
 blogRouter.get('/', (req, res) => {
     blogModel.find()
-        .then(books => {
-            res.render('books', { user: req.user, books })
+        .then(blogs => {
+            res.render('blogs', { user: req.user, blogs })
         })
         .catch(err => {
             console.log(err)
@@ -17,7 +17,7 @@ blogRouter.get('/', (req, res) => {
 blogRouter.get('/:id', (req, res) => {
     const id = req.params.id
     blogModel.findById(id)
-        .then(book => {
+        .then(blog => {
             res.status(200).send(blog)
         }).catch(err => {
             console.log(err)
@@ -26,10 +26,10 @@ blogRouter.get('/:id', (req, res) => {
 })
 
 blogRouter.post('/', (req, res) => {
-    const book = req.body
+    const blog = req.body
     book.lastUpdateAt = new Date() // set the lastUpdateAt to the current date
-    blogModel.create(book)
-        .then(book => {
+    blogModel.create(blog)
+        .then(blog => {
             res.status(201).send(blog)
         }).catch(err => {
             console.log(err)
@@ -42,8 +42,8 @@ blogRouter.put('/:id', (req, res) => {
     const blog = req.body
     blog.lastUpdateAt = new Date() // set the lastUpdateAt to the current date
     blogModel.findByIdAndUpdate(id, blog, { new: true })
-        .then(newBook => {
-            res.status(200).send(newBook)
+        .then(newBlog => {
+            res.status(200).send(newBlog)
         }).catch(err => {
             console.log(err)
             res.status(500).send(err)
